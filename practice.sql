@@ -18,6 +18,9 @@ VALUES ('Charles', 25, 'Lagos'),
 -- Select all rows
 SELECT * FROM users;
 
+-- Select specific columns
+SELECT name, age FROM users;
+
 -- Select with WHERE filter
 SELECT * FROM users WHERE age > 20;
 
@@ -32,6 +35,9 @@ DELETE FROM users WHERE name = 'Sean';
 
 -- Order by age descending
 SELECT * FROM users ORDER BY age DESC;
+
+-- Limit results
+SELECT * FROM users LIMIT 2;
 
 -- Aggregates
 SELECT COUNT(*) FROM users;
@@ -60,3 +66,18 @@ JOIN posts ON users.id = posts.user_id;
 SELECT users.name, posts.title
 FROM users
 LEFT JOIN posts ON users.id = posts.user_id;
+
+-- GROUP BY
+SELECT city, COUNT(*)
+FROM users
+GROUP BY city;
+
+-- HAVING
+SELECT city, COUNT(*)
+FROM users
+GROUP BY city
+HAVING COUNT(*) > 1;
+
+-- Subquery
+SELECT name FROM users
+WHERE age = (SELECT MAX(age) FROM users);
