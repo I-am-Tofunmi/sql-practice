@@ -18,9 +18,6 @@ VALUES ('Charles', 25, 'Lagos'),
 -- Select all rows
 SELECT * FROM users;
 
--- Select specific columns
-SELECT name, age FROM users;
-
 -- Select with WHERE filter
 SELECT * FROM users WHERE age > 20;
 
@@ -43,6 +40,8 @@ SELECT * FROM users LIMIT 2;
 SELECT COUNT(*) FROM users;
 SELECT AVG(age) FROM users;
 SELECT SUM(age) FROM users;
+SELECT MIN(age) FROM users;
+SELECT MAX(age) FROM users;
 
 -- Create posts table
 CREATE TABLE posts (
@@ -67,6 +66,16 @@ SELECT users.name, posts.title
 FROM users
 LEFT JOIN posts ON users.id = posts.user_id;
 
+-- RIGHT JOIN
+SELECT users.name, posts.title
+FROM users
+RIGHT JOIN posts ON users.id = posts.user_id;
+
+-- FULL JOIN
+SELECT users.name, posts.title
+FROM users
+FULL JOIN posts ON users.id = posts.user_id;
+
 -- GROUP BY
 SELECT city, COUNT(*)
 FROM users
@@ -81,3 +90,11 @@ HAVING COUNT(*) > 1;
 -- Subquery
 SELECT name FROM users
 WHERE age = (SELECT MAX(age) FROM users);
+
+-- CTE (Common Table Expression)
+WITH city_counts AS (
+    SELECT city, COUNT(*) as total
+    FROM users
+    GROUP BY city
+)
+SELECT * FROM city_counts WHERE total > 1;
